@@ -5,30 +5,32 @@ const App = () => {
   return (
     <View style={styles.homePage}>
       <View style={styles.logoContainer}>
-        <Image source={require('./assets/logo/logo.png')}></Image>
+        <Image source={require('./assets/logo/logo.png')} />
       </View>
-      <View style={styles.tagLineContainer}>
+      <View style={styles.titleLineContainer}>
         <Text style={styles.title}>Food for Everyone</Text>
       </View>
       <View style={styles.imagesContainer}>
-        <View style={styles.imageBoundaryFocused}>
+        <View style={styles.frontImageBoundary}>
           <Image
-            style={styles.imageFocused}
+            style={styles.frontImage}
             resizeMode="contain"
             source={require('./assets/images/animeLady.png')}
           />
         </View>
-        <View style={styles.imageBoundaryDiffused}>
+        <View style={styles.backImageBoundary}>
           <Image
-            style={styles.imageDiffused}
+            style={styles.backImage}
             source={require('./assets/images/animeBoy.png')}
             resizeMode="contain"
           />
         </View>
       </View>
-      <TouchableOpacity style={styles.touchableStyle} onPress={() => {}}>
+      <TouchableOpacity style={styles.button} onPress={() => {}}>
         <View style={styles.buttonContainer}>
-          <Text style={styles.buttomText}>Get Started</Text>
+          <Text style={[styles.buttonTitle, styles.textCenter]}>
+            Get Started
+          </Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -49,16 +51,16 @@ const styles = StyleSheet.create({
     marginLeft: 49,
     marginTop: 56 / 2,
   },
-  tagLineContainer: {
+  titleLineContainer: {
     marginLeft: 51,
   },
   imagesContainer: {
     flexDirection: 'row',
   },
-  imageBoundaryFocused: {
+  frontImageBoundary: {
     flex: 1,
   },
-  imageBoundaryDiffused: {
+  backImageBoundary: {
     flex: 1,
     alignSelf: 'flex-end',
   },
@@ -67,16 +69,16 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontFamily: 'SF-Pro-Rounded-Heavy',
   },
-  imageFocused: {
+  frontImage: {
     width: 300,
     height: 454,
   },
-  imageDiffused: {
+  backImage: {
     width: 218,
     height: 330,
     zIndex: -5,
   },
-  touchableStyle: {
+  button: {
     position: 'absolute',
     bottom: 12,
     alignSelf: 'center',
@@ -90,11 +92,13 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     justifyContent: 'center',
   },
-  buttomText: {
+  buttonTitle: {
     color: '#FF460A',
-    textAlign: 'center',
     fontFamily: 'SF-Pro-Rounded-Regular',
     fontSize: 17,
+  },
+  textCenter: {
+    textAlign: 'center',
     textAlignVertical: 'center',
   },
 });
