@@ -16,69 +16,55 @@ const LoginSignUp = props => {
   const [isLogin, setVisible] = useState(true);
   return (
     <KeyboardAwareScrollView
-      contentContainerStyle={{flexGrow: 1}}
+      contentContainerStyle={{flexGrow: 1, backgroundColor: '#F2F2F2'}}
       style={styles.removePadding}>
-      <View style={styles.appContainer}>
-        <View style={[styles.alignImage, styles.whiteBackground]}>
-          <View style={[styles.whiteBackground, styles.selfCenter]}>
-            <Image source={require('../assets/images/loginImage.png')} />
-          </View>
-        </View>
+      <View style={[styles.alignImage, styles.whiteBackground]}>
+        <Image source={require('../assets/images/loginImage.png')} />
+      </View>
 
-        <View style={[styles.tabContainer, styles.whiteBackground]}>
-          <TouchableHighlight
-            onPress={() => {
-              setVisible(true);
-            }}
-            underlayColor="white"
-            style={styles.click}>
-            <Text style={[styles.button, styles.textCenter]}>Login</Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-            onPress={() => {
-              setVisible(false);
-            }}
-            underlayColor="white"
-            style={styles.click}>
-            <Text style={[styles.button, styles.textCenter]}>Signup</Text>
-          </TouchableHighlight>
-        </View>
+      <View style={[styles.tabContainer, styles.whiteBackground]}>
+        <TouchableHighlight
+          onPress={() => {
+            setVisible(true);
+          }}
+          underlayColor="white"
+          style={styles.click}>
+          <Text style={[styles.buttonLeft]}>Login</Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => {
+            setVisible(false);
+          }}
+          underlayColor="white"
+          style={styles.click}>
+          <Text style={[styles.buttonRight, styles.textCenter]}>Signup</Text>
+        </TouchableHighlight>
+      </View>
 
-        {isLogin ? (
-          <View style={styles.active} />
-        ) : (
-          <View style={[styles.active, styles.reverse]} />
-        )}
+      {isLogin ? (
+        <View style={styles.active} />
+      ) : (
+        <View style={[styles.active, styles.reverse]} />
+      )}
 
-        <View>
-          <View style={styles.spacer}></View>
+      <Text style={[styles.inputLabel, styles.spacer]}>Email address</Text>
+      <TextInput style={styles.input} />
 
-          <Text style={styles.inputLabel}>Email address</Text>
-          <TextInput style={styles.input} />
+      <Text style={[styles.inputLabel, styles.shortSpacer]}>Password</Text>
+      <TextInput style={styles.input} />
 
-          <View style={styles.shortSpacer} />
+      <Text
+        style={[styles.text, styles.shortSpacer]}
+        onPress={() => Linking.openURL('http://google.com')}>
+        {isLogin ? 'Forgot passcode ?' : ''}
+      </Text>
 
-          <Text style={styles.inputLabel}>Password</Text>
-          <TextInput style={styles.input} />
-
-          <View style={styles.shortSpacer} />
-
-          <Text
-            style={styles.text}
-            onPress={() => Linking.openURL('http://google.com')}>
-            {isLogin ? 'Forgot passcode ?' : ''}
+      <View style={[styles.selfCenter, styles.border]} onPress={() => {}}>
+        <TouchableOpacity style={[styles.buttonContainer, styles.selfCenter]}>
+          <Text style={[styles.buttonTitle, styles.textCenter]}>
+            {isLogin ? 'Login' : 'Signup'}
           </Text>
-        </View>
-
-        <View
-          style={[styles.alignButton, styles.selfCenter]}
-          onPress={() => {}}>
-          <TouchableOpacity style={[styles.buttonContainer, styles.selfCenter]}>
-            <Text style={[styles.buttonTitle, styles.textCenter]}>
-              {isLogin ? 'Login' : 'Signup'}
-            </Text>
-          </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
       </View>
     </KeyboardAwareScrollView>
   );
@@ -88,13 +74,11 @@ const styles = StyleSheet.create({
   removePadding: {
     padding: 0,
   },
-  appContainer: {
-    flex: 1,
-    backgroundColor: '#F2F2F2',
-  },
+
   alignImage: {
     height: 330,
     justifyContent: 'center',
+    alignItems: 'center',
   },
   whiteBackground: {
     backgroundColor: '#ffffff',
@@ -110,25 +94,34 @@ const styles = StyleSheet.create({
   },
   click: {
     width: '50%',
+    alignSelf: 'center',
   },
-  button: {
+  buttonLeft: {
     color: '#000000',
     textAlign: 'center',
     fontFamily: 'SF-Pro-Rounded-Medium',
     fontSize: 20,
     marginBottom: 14,
+    marginLeft: 20,
+    textAlign: 'center',
+  },
+  buttonRight: {
+    color: '#000000',
+    textAlign: 'center',
+    fontFamily: 'SF-Pro-Rounded-Medium',
+    fontSize: 20,
+    marginBottom: 14,
+    marginRight: 28,
+    textAlign: 'center',
   },
   spacer: {
     marginTop: 30,
-  },
-  container: {
-    flex: 1,
   },
   shortSpacer: {
     marginTop: 10,
   },
   active: {
-    width: '40%',
+    width: '38%',
     borderColor: '#FA4A0C',
     borderWidth: 2,
     marginLeft: 40,
@@ -144,7 +137,11 @@ const styles = StyleSheet.create({
     marginLeft: 60,
     color: '#000000',
   },
-
+  border: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginVertical: 20,
+  },
   input: {
     padding: 0,
     fontSize: 15,
@@ -161,10 +158,7 @@ const styles = StyleSheet.create({
   selfCenter: {
     alignSelf: 'center',
   },
-  alignButton: {
-    position: 'absolute',
-    bottom: 20,
-  },
+
   buttonContainer: {
     backgroundColor: '#FA4A0C',
     height: 50,
@@ -176,12 +170,10 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontFamily: 'SF-Pro-Rounded-Regular',
     fontSize: 17,
+    marginHorizontal: 40,
   },
   textCenter: {
     textAlign: 'center',
-  },
-  textFont: {
-    fontFamily: 'SF-Pro-Rounded-Regular',
   },
 });
 

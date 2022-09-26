@@ -3,7 +3,6 @@ import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 
 const HomeScreen = props => {
-  console.log(props);
   const navigation = props.navigation;
 
   function goToLogin() {
