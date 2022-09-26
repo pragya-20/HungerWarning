@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {
   StyleSheet,
@@ -14,6 +14,12 @@ import {
 
 const LoginSignUp = props => {
   const [isLogin, setVisible] = useState(true);
+  const inputPasswordRef = useRef(null);
+  // function mainhunFunction() {
+  //   console.log('main call hua');
+  //   inputPasswordRef.current.focus();
+  // }
+
   return (
     <KeyboardAwareScrollView
       contentContainerStyle={{flexGrow: 1, backgroundColor: '#F2F2F2'}}
@@ -48,10 +54,16 @@ const LoginSignUp = props => {
       )}
 
       <Text style={[styles.inputLabel, styles.spacer]}>Email address</Text>
-      <TextInput style={styles.input} />
+      <TextInput
+        style={styles.input}
+        onSubmitEditing={() => {
+          inputPasswordRef.current.focus();
+        }}
+        // onSubmitEditing={inputPasswordRef.current.focus}
+      />
 
       <Text style={[styles.inputLabel, styles.shortSpacer]}>Password</Text>
-      <TextInput style={styles.input} />
+      <TextInput style={styles.input} ref={inputPasswordRef} />
 
       <Text
         style={[styles.text, styles.shortSpacer]}
