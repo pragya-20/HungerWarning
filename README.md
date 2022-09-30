@@ -49,3 +49,33 @@ Hunger Warning is an application which will provide a place to order a variety o
 * Stack Navigator and it dependencies Installation: don't copy dependencies from other projects and do it fresh in the current project
 
 * [KeyboardAwareScrollView](https://blog.logrocket.com/keyboardawarescrollview-keyboardavoidingview-react-native/): used to avoid the overlapping of the input elements due to keyboard. It let's us to scroll over the whole screen and focus on the element you are working.
+
+Learned to simplify the ode as muh as possible , it improves readability and easy to understand.
+Implemented Login and Sign Up using Firebase Authentiation.
+Firebase provides multiple ways to login or sign up in the app inluding email paswwor, anonymously, using soial media handles.
+useState() is a reat native hook whih returns an arrayy with 2 values, first whih the state value and the seond one is the funtion whih updates the state value<br/>
+useState take an argument and initializes the state as well.
+hooks an be used with in funtion omponents only not with the lass omponents. but these are the alternative of states of lass in funtion omponents<br/>
+hooks should be plaed and alled from the top level as they need to be exeuted in the same sequene every time app renders
+<br/>
+useRef <br/>
+useEffet: its the hook whih lets you perform the side effets in funtion omponents. using this, we tell the reat that this omponent needs to do something after first render and every render.
+so, whenever there is some omputational things we need in our app, we separate those in useEffet method so that it doesn't delay the app rendering.<br/>
+onhangeText prop of TextInput: it's a allbak funtion whih is alled when the text's input hanges. hange text is passed as a single string argument to the allbak handler. To use the text input value and refer it somewhere you need to use hangeText and assign it with stateVariable. Then you an use that state variable with in the ode
+value prop of the text input lets you foribly set the initial value in the input and doesn't let you enter anything beyond that
+
+<br/>
+To hek if the user is urrently signedin or not in the appliation, firebase provides a method alled onAuthStatehanged whih allows you to subsribe the users urrent authentiation state and reive an event whatever the state hanges 
+Important, onAuthStatehanged is asynh method whih runs after the onnetion with the firebase established
+If the user retuned within the handler is null then it means that the user is signed out urrntly,otherwise they are signedin and and a UI is returned
+
+TO Ask Saurav: Therefore it is important to setup an "initializing" state which blocks render of our main application whilst the connection is established:
+
+the onAuthStatehanged method also returns an unsubsriber method whih allows us to stop listening events when teh hook is of no use
+
+EMailPassword Sign in: user an both register and sign using the method reateUserWithEmailAndPassword whih performs 2 operations: first, reating the user if they are not the existing ones and then signing them in.
+.then(): this is a promise whih exeuted only if the promise is resolved and if the promise is rejeted then .ath() will be exeuted whih handles the errors
+post that there is .finally() whih exeutes always
+One suessfully reated and signedin /signed in, any onAuthStatehanges listener will trigger an event with the user details
+
+What so every the method you use to login/sign-up, you need to enable that mentod in the firebase onsole as well.

@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {
   StyleSheet,
@@ -9,16 +9,67 @@ import {
   TouchableHighlight,
   TextInput,
   Linking,
-  KeyboardAvoidingView,
 } from 'react-native';
+import auth from '@react-native-firebase/auth';
 
 const LoginSignUp = props => {
   const [isLogin, setVisible] = useState(true);
+
   const inputPasswordRef = useRef(null);
-  // function mainhunFunction() {
-  //   console.log('main call hua');
-  //   inputPasswordRef.current.focus();
-  // }
+  const navigation = props.navigation;
+
+  const [user, setUser] = useState(null);
+
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+
+  // const showEmailPwd = () => {
+  //   console.log(email, '--', password);
+  // };
+  // Handle user state changes
+  function onAuthStateChanged(user) {
+    console.log('UserRceived', user);
+    setUser(user);
+  }
+
+  useEffect(() => {
+    console.log('useEffect Called');
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    console.log('Subsriber: ', subscriber);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  const handleLogin = () => {
+    console.log('Button Click');
+    if (isLogin) {
+      auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(result => {
+          console.log('Logged In', result);
+        })
+        .catch(erroraaya => {
+          console.log('Wrong credentials', erroraaya);
+        });
+    } else {
+      auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(data => {
+          console.log('User account created & signed in!', ' ', data);
+        })
+        .catch(error => {
+          if (error.code === 'auth/email-already-in-use') {
+            console.log('That email address is already in use!');
+          }
+
+          if (error.code === 'auth/invalid-email') {
+            console.log('That email address is invalid!');
+          }
+
+          console.log(error);
+        });
+      console.log('JS ended');
+    }
+  };
 
   return (
     <KeyboardAwareScrollView
@@ -59,11 +110,15 @@ const LoginSignUp = props => {
         onSubmitEditing={() => {
           inputPasswordRef.current.focus();
         }}
-        // onSubmitEditing={inputPasswordRef.current.focus}
+        onChangeText={setEmail}
       />
 
       <Text style={[styles.inputLabel, styles.shortSpacer]}>Password</Text>
-      <TextInput style={styles.input} ref={inputPasswordRef} />
+      <TextInput
+        style={styles.input}
+        onChangeText={setPassword}
+        ref={inputPasswordRef}
+      />
 
       <Text
         style={[styles.text, styles.shortSpacer]}
@@ -71,8 +126,10 @@ const LoginSignUp = props => {
         {isLogin ? 'Forgot passcode ?' : ''}
       </Text>
 
-      <View style={[styles.selfCenter, styles.border]} onPress={() => {}}>
-        <TouchableOpacity style={[styles.buttonContainer, styles.selfCenter]}>
+      <View style={[styles.selfCenter, styles.border]}>
+        <TouchableOpacity
+          style={[styles.buttonContainer, styles.selfCenter]}
+          onPress={handleLogin}>
           <Text style={[styles.buttonTitle, styles.textCenter]}>
             {isLogin ? 'Login' : 'Signup'}
           </Text>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1027091387764",
+    "project_id": "hunger-warning",
+    "storage_bucket": "hunger-warning.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027091387764:android:8051bb3ba922ed4ed68821",
+        "android_client_info": {
+          "package_name": "com.hungerwarning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1027091387764-un131nsbcd5ubt6k296a5ujor87aj77h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCStMtoT-730oghzWT83C2hZmi5G5l3cgo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1027091387764-un131nsbcd5ubt6k296a5ujor87aj77h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

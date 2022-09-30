@@ -5,3 +5,4 @@ https://reactnative.dev/docs/flexbox#justify-content
 https://reactnative.dev/docs/handling-touches
 
 Update the codebase for the is active button using borderBottomWidth
+flexGrow
