@@ -16,6 +16,7 @@ const LoginSignUp = props => {
   const [isLogin, setVisible] = useState(true);
 
   const inputPasswordRef = useRef(null);
+
   const navigation = props.navigation;
 
   const [user, setUser] = useState(null);
@@ -23,20 +24,17 @@ const LoginSignUp = props => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
-  // const showEmailPwd = () => {
-  //   console.log(email, '--', password);
-  // };
   // Handle user state changes
-  function onAuthStateChanged(user) {
+  function isStateChanged(user) {
     console.log('UserRceived', user);
     setUser(user);
   }
 
   useEffect(() => {
     console.log('useEffect Called');
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    const subscriber = auth().onAuthStateChanged(isStateChanged);
     console.log('Subsriber: ', subscriber);
-    return subscriber; // unsubscribe on unmount
+    return subscriber;
   }, []);
 
   const handleLogin = () => {

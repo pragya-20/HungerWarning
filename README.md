@@ -40,6 +40,10 @@ Hunger Warning is an application which will provide a place to order a variety o
   | ^
   > Folders for the files have been changed due to which the parent directory of the referred asset have also been changed.
 
+* Error: Got an invalid value for 'component' prop for the screen 'MainScreen'. It must be a valid React Component.
+
+> export default appname was missing
+
 <h3>Learnings</h3>
 
 - Button from React Native [library](https://reactnative.dev/docs/button) is not much customizable so, we use either pressable or touchable
@@ -79,3 +83,8 @@ post that there is .finally() whih exeutes always
 One suessfully reated and signedin /signed in, any onAuthStatehanges listener will trigger an event with the user details
 
 What so every the method you use to login/sign-up, you need to enable that mentod in the firebase onsole as well.
+
+- PlaceholderColor
+- placeholder fontfamily
+
+* Pass the horizontal={true} prop to the ScrollView Component.
