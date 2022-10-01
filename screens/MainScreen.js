@@ -1,3 +1,4 @@
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {
   View,
@@ -6,10 +7,118 @@ import {
   Image,
   TextInput,
   ScrollView,
+  Touchable,
 } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/Ionicons';
+import LoginSignUp from './LoginSignUp';
+import HomeScreen from './HomeScreen';
+import Favorite from './Favorite';
+
+const Tab = createBottomTabNavigator();
 
 const MainScreen = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Tab.Screen
+        name="Main"
+        component={Main}
+        options={{
+          tabBarLabel: () => {
+            return null;
+          },
+          tabBarIcon: () => {
+            return (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                  borderColor: 'green',
+                  width: '100%',
+                }}>
+                <View>
+                  <Icon name="home" color="#ADADAF" size={25} />
+                </View>
+              </View>
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Favorite"
+        component={Favorite}
+        options={{
+          tabBarLabel: () => {
+            return null;
+          },
+          tabBarIcon: () => {
+            return (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                  borderColor: 'green',
+                  width: '100%',
+                }}>
+                <Icon name="heart-outline" color="#ADADAF" size={25} />
+              </View>
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Login"
+        component={LoginSignUp}
+        options={{
+          tabBarLabel: () => {
+            return null;
+          },
+          tabBarIcon: () => {
+            return (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                  borderColor: 'green',
+                  width: '100%',
+                }}>
+                <Icon name="person-outline" color="#ADADAF" size={25} />
+              </View>
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: () => {
+            return null;
+          },
+          tabBarIcon: () => {
+            return (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                  borderColor: 'green',
+                  width: '100%',
+                }}>
+                <Icon name="timer-outline" color="#ADADAF" size={25} />
+              </View>
+            );
+          },
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
+
+const Main = () => {
   return (
     <View style={styles.screenContainer}>
       <Text style={styles.text}>Delicious food for you</Text>
@@ -23,8 +132,6 @@ const MainScreen = () => {
         horizontal={true}
         style={styles.galleryContainer}
         contentContainerStyle={{
-          // borderWidth: 10,
-          // borderColor: 'red',
           paddingTop: 51,
         }}>
         <View style={{justifyContent: 'flex-end'}}>
@@ -32,10 +139,27 @@ const MainScreen = () => {
             <View style={styles.circle}></View>
           </View>
         </View>
+        <View style={{justifyContent: 'flex-end'}}>
+          <View style={styles.card}>
+            <View style={styles.circle}></View>
+          </View>
+        </View>
+        <View style={{justifyContent: 'flex-end'}}>
+          <View style={styles.card}>
+            <View style={styles.circle}></View>
+          </View>
+        </View>
 
-        <View style={styles.card} />
-        <View style={styles.card} />
-        {/* </View> */}
+        <View style={{justifyContent: 'flex-end'}}>
+          <View style={styles.card}>
+            <View style={styles.circle}></View>
+          </View>
+        </View>
+        <View style={{justifyContent: 'flex-end'}}>
+          <View style={styles.card}>
+            <View style={styles.circle}></View>
+          </View>
+        </View>
       </ScrollView>
     </View>
   );
