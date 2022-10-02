@@ -1,24 +1,24 @@
-import {NavigationContainer} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  Image,
   TextInput,
   ScrollView,
-  Touchable,
+  TouchableOpacity,
+  Image,
 } from 'react-native';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
-import LoginSignUp from './LoginSignUp';
 import HomeScreen from './HomeScreen';
 import Favorite from './Favorite';
+import Profile from './Profile';
+import MenuCard from '../Components/MenuCard';
 
 const Tab = createBottomTabNavigator();
 
-const MainScreen = () => {
+const MainScreen = props => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -28,9 +28,11 @@ const MainScreen = () => {
         name="Main"
         component={Main}
         options={{
+          tabBarStyle: {backgroundColor: 'transparent', borderTopWidth: 0},
           tabBarLabel: () => {
             return null;
           },
+
           tabBarIcon: () => {
             return (
               <View
@@ -71,8 +73,8 @@ const MainScreen = () => {
         }}
       />
       <Tab.Screen
-        name="Login"
-        component={LoginSignUp}
+        name="ProfileScreen"
+        component={Profile}
         options={{
           tabBarLabel: () => {
             return null;
@@ -119,49 +121,67 @@ const MainScreen = () => {
 };
 
 const Main = () => {
+  const [data, setData] = useState([]);
+  console.log('Data', data);
+  const getFoodImages = async () => {
+    try {
+      const response = await fetch('https://burgers1.p.rapidapi.com/burgers', {
+        method: 'GET',
+        headers: {
+          'X-RapidAPI-Key':
+            'b13d4452e0msh022c443e270f56bp1d7113jsn7bdfb29892ae',
+          'X-RapidAPI-Host': 'burgers1.p.rapidapi.com',
+        },
+      });
+      const json = await response.json();
+      setData(json);
+      console.log('Json Response--', json);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    getFoodImages();
+  }, []);
   return (
-    <View style={styles.screenContainer}>
-      <Text style={styles.text}>Delicious food for you</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Search"
-        placeholderTextColor="#000000"
-        placeholderStyle
-      />
-      <ScrollView
-        horizontal={true}
-        style={styles.galleryContainer}
-        contentContainerStyle={{
-          paddingTop: 51,
-        }}>
-        <View style={{justifyContent: 'flex-end'}}>
-          <View style={styles.card}>
-            <View style={styles.circle}></View>
-          </View>
-        </View>
-        <View style={{justifyContent: 'flex-end'}}>
-          <View style={styles.card}>
-            <View style={styles.circle}></View>
-          </View>
-        </View>
-        <View style={{justifyContent: 'flex-end'}}>
-          <View style={styles.card}>
-            <View style={styles.circle}></View>
-          </View>
-        </View>
+    <>
+      <View style={styles.screenContainer}>
+        <TouchableOpacity
+          onPress={() => {
+            console.log('Back');
+          }}>
+          <Icon
+            name="chevron-back"
+            size={25}
+            style={{marginTop: 20, marginLeft: 20}}
+          />
+        </TouchableOpacity>
 
-        <View style={{justifyContent: 'flex-end'}}>
-          <View style={styles.card}>
-            <View style={styles.circle}></View>
-          </View>
+        <Text style={styles.text}>Delicious food for you</Text>
+        <View style={styles.inputView}>
+          <Icon name="search-outline" size={25} style={styles.alignIcon} />
+          <TextInput
+            style={styles.input}
+            placeholder="Search"
+            placeholderTextColor="#000000"
+            placeholderStyle
+          />
         </View>
-        <View style={{justifyContent: 'flex-end'}}>
-          <View style={styles.card}>
-            <View style={styles.circle}></View>
-          </View>
-        </View>
-      </ScrollView>
-    </View>
+        <>
+          <ScrollView
+            horizontal={true}
+            style={styles.galleryContainer}
+            contentContainerStyle={{
+              paddingTop: 51,
+            }}>
+            {data.map((item, i) => {
+              console.log(item.name);
+              return <MenuCard x={item} />;
+            })}
+          </ScrollView>
+        </>
+      </View>
+    </>
   );
 };
 
@@ -178,44 +198,47 @@ const styles = StyleSheet.create({
     fontSize: 34,
     marginLeft: 50,
     width: 190,
-    marginTop: 85,
+    marginTop: 45,
     // borderWidth: 2,
   },
-  input: {
+  alignIcon: {
+    alignSelf: 'center',
+    marginLeft: 30,
+  },
+  inputView: {
     width: 260,
-    height: 60,
-    // borderWidth: 2,
-    // borderColor: 'red',
     borderRadius: 30,
     marginTop: 30,
     marginLeft: 50,
     backgroundColor: '#EFEEEE',
-    fontFamily: 'SF-Pro-Rounded-Light',
+    flexDirection: 'row',
   },
+  input: {
+    borderRadius: 30,
+    width: 187,
+    // borderWidth: 1,
+    // borderColor: 'green',
+    backgroundColor: '#EFEEEE',
+    fontFamily: 'SF-Pro-Rounded-Light',
+    marginLeft: 16,
+  },
+
   galleryContainer: {
     // flex: 1,
     // borderWidth: 2,
     // borderColor: 'yellow',
-    // paddingTop: 60,
-    marginBottom: 70,
+    marginBottom: 25,
     marginLeft: 30,
-    // flexDirection: 'row',
   },
-  // contentContainerStyle: {
-  //   justifyContent: 'center',
-  // },
+
   card: {
     width: 220,
     height: 270,
-    // borderWidth: 2,
-    // borderColor: 'green',
     borderRadius: 45,
     backgroundColor: '#ffffff',
-    // marginTop: 45,
+    borderWidth: 1,
     marginRight: 20,
     marginLeft: 20,
-    // position: 'absolute',
-    // bottom: 50,
   },
   circle: {
     backgroundColor: 'pink',
@@ -224,11 +247,6 @@ const styles = StyleSheet.create({
     borderRadius: 75,
     alignSelf: 'center',
     marginTop: -51,
-    // position: 'absolute',
-    // top: 0,
-    // // bottom: 100,
-    // left: '23%',
-    // right: 20,
   },
 });
 

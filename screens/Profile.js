@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-const Favorite = () => {
+const Profile = () => {
   return (
     <View
       style={{
@@ -10,8 +10,8 @@ const Favorite = () => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <Text style={{color: 'black'}}>Favorite Screen</Text>
+      <Text style={{color: 'black'}}>Profile</Text>
     </View>
   );
 };
-export default Favorite;
+export default Profile;
