@@ -44,6 +44,10 @@ Hunger Warning is an application which will provide a place to order a variety o
 
 > export default appname was missing
 
+- fatal: Could not read from remote repository.
+
+* tabBarLabel:() => {return null}
+
 <h3>Learnings</h3>
 
 - Button from React Native [library](https://reactnative.dev/docs/button) is not much customizable so, we use either pressable or touchable
