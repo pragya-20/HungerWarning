@@ -21,100 +21,60 @@ const Tab = createBottomTabNavigator();
 const MainScreen = props => {
   return (
     <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}>
-      <Tab.Screen
-        name="Main"
-        component={Main}
-        options={{
-          tabBarStyle: {backgroundColor: 'transparent', borderTopWidth: 0},
-          tabBarLabel: () => {
-            return null;
-          },
-
-          tabBarIcon: () => {
-            return (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                  borderColor: 'green',
-                  width: '100%',
-                }}>
-                <View>
-                  <Icon name="home" color="#ADADAF" size={25} />
-                </View>
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused}) => {
+          let iconName;
+          let iconColor;
+          if (route.name === 'Main') {
+            iconName = focused ? 'home' : 'home-outline';
+            iconColor = focused ? 'red' : '#ADADAF';
+          } else if (route.name === 'Favorite') {
+            iconName = focused ? 'heart-sharp' : 'heart-outline';
+          } else if (route.name === 'ProfileScreen') {
+            iconName = focused ? 'person' : 'person-outline';
+          } else {
+            iconName = focused ? 'timer' : 'timer-outline';
+          }
+          return (
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                borderColor: 'green',
+                width: '100%',
+              }}>
+              <View>
+                <Icon name={iconName} color={iconColor} size={25} />
               </View>
-            );
-          },
-        }}
-      />
+            </View>
+          );
+        },
+
+        tabBarActiveTintColor: 'blue',
+        tabBarStyle: {
+          backgroundColor: 'transparent',
+          borderTopWidth: 0,
+          elevation: 0,
+        },
+        tabBarLabel: () => {
+          return null;
+        },
+      })}>
+      <Tab.Screen name="Main" component={Main} options={{headerShown: false}} />
       <Tab.Screen
         name="Favorite"
         component={Favorite}
-        options={{
-          tabBarLabel: () => {
-            return null;
-          },
-          tabBarIcon: () => {
-            return (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                  borderColor: 'green',
-                  width: '100%',
-                }}>
-                <Icon name="heart-outline" color="#ADADAF" size={25} />
-              </View>
-            );
-          },
-        }}
+        options={{headerShown: false}}
       />
       <Tab.Screen
         name="ProfileScreen"
         component={Profile}
-        options={{
-          tabBarLabel: () => {
-            return null;
-          },
-          tabBarIcon: () => {
-            return (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                  borderColor: 'green',
-                  width: '100%',
-                }}>
-                <Icon name="person-outline" color="#ADADAF" size={25} />
-              </View>
-            );
-          },
-        }}
+        options={{headerShown: false}}
       />
       <Tab.Screen
         name="Home"
         component={HomeScreen}
-        options={{
-          tabBarLabel: () => {
-            return null;
-          },
-          tabBarIcon: () => {
-            return (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                  borderColor: 'green',
-                  width: '100%',
-                }}>
-                <Icon name="timer-outline" color="#ADADAF" size={25} />
-              </View>
-            );
-          },
-        }}
+        options={{headerShown: false}}
       />
     </Tab.Navigator>
   );
@@ -122,7 +82,7 @@ const MainScreen = props => {
 
 const Main = () => {
   const [data, setData] = useState([]);
-  console.log('Data', data);
+  // console.log('Data', data);
   const getFoodImages = async () => {
     try {
       const response = await fetch('https://burgers1.p.rapidapi.com/burgers', {
@@ -135,7 +95,7 @@ const Main = () => {
       });
       const json = await response.json();
       setData(json);
-      console.log('Json Response--', json);
+      // console.log('Json Response--', json);
     } catch (error) {
       console.error(error);
     }
@@ -148,7 +108,7 @@ const Main = () => {
       <View style={styles.screenContainer}>
         <TouchableOpacity
           onPress={() => {
-            console.log('Back');
+            // console.log('Back');
           }}>
           <Icon
             name="chevron-back"
@@ -175,7 +135,7 @@ const Main = () => {
               paddingTop: 51,
             }}>
             {data.map((item, i) => {
-              console.log(item.name);
+              // console.log(item.name);
               return <MenuCard x={item} />;
             })}
           </ScrollView>

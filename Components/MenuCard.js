@@ -16,15 +16,27 @@ import {
 // import Profile from './Profile';
 
 const Main = props => {
-  console.log(props);
+  // console.log(props);
   return (
     <View style={{justifyContent: 'flex-end'}}>
       <View style={styles.card}>
-        <View style={styles.circle}>
-          <Text key={props.x.i} style={{color: 'red'}}>
-            {props.x.name}
-          </Text>
-        </View>
+        <View style={styles.circle}></View>
+        <Text
+          key={props.x.i}
+          style={{
+            color: 'red',
+            // alignSelf: 'flex-start',
+            // justifyContent: 'center',
+            // textAlign: 'center',
+            textAlignVertical: 'bottom',
+            borderWidth: 1,
+
+            marginTop: 30,
+            textAlign: 'center',
+            // textAlignVertical: 'center',
+          }}>
+          {props.x.name}
+        </Text>
       </View>
     </View>
   );
@@ -82,7 +94,8 @@ const styles = StyleSheet.create({
     height: 270,
     borderRadius: 45,
     backgroundColor: '#ffffff',
-
+    // justifyContent: 'center',
+    // alignItems: 'center',
     marginRight: 20,
     marginLeft: 20,
   },
