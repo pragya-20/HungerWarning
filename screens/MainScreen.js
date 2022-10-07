@@ -1,88 +1,19 @@
 import React, {useEffect, useState} from 'react';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import Icon from 'react-native-vector-icons/Ionicons';
+import MenuCard from '../Components/MenuCard';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  ScrollView,
-  TouchableOpacity,
   Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from 'react-native';
 
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/Ionicons';
-import HomeScreen from './HomeScreen';
-import Favorite from './Favorite';
-import Profile from './Profile';
-import MenuCard from '../Components/MenuCard';
-
-const Tab = createBottomTabNavigator();
-
 const MainScreen = props => {
-  return (
-    <Tab.Navigator
-      screenOptions={({route}) => ({
-        tabBarIcon: ({focused}) => {
-          let iconName;
-          let iconColor;
-          if (route.name === 'Main') {
-            iconName = focused ? 'home' : 'home-outline';
-            iconColor = focused ? 'red' : '#ADADAF';
-          } else if (route.name === 'Favorite') {
-            iconName = focused ? 'heart-sharp' : 'heart-outline';
-          } else if (route.name === 'ProfileScreen') {
-            iconName = focused ? 'person' : 'person-outline';
-          } else {
-            iconName = focused ? 'timer' : 'timer-outline';
-          }
-          return (
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-                borderColor: 'green',
-                width: '100%',
-              }}>
-              <View>
-                <Icon name={iconName} color={iconColor} size={25} />
-              </View>
-            </View>
-          );
-        },
-
-        tabBarActiveTintColor: 'blue',
-        tabBarStyle: {
-          backgroundColor: 'transparent',
-          borderTopWidth: 0,
-          elevation: 0,
-        },
-        tabBarLabel: () => {
-          return null;
-        },
-      })}>
-      <Tab.Screen name="Main" component={Main} options={{headerShown: false}} />
-      <Tab.Screen
-        name="Favorite"
-        component={Favorite}
-        options={{headerShown: false}}
-      />
-      <Tab.Screen
-        name="ProfileScreen"
-        component={Profile}
-        options={{headerShown: false}}
-      />
-      <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{headerShown: false}}
-      />
-    </Tab.Navigator>
-  );
-};
-
-const Main = () => {
   const [data, setData] = useState([]);
-  // console.log('Data', data);
+  const [searchTerm, setSearchTerm] = useState('');
   const getFoodImages = async () => {
     try {
       const response = await fetch('https://burgers1.p.rapidapi.com/burgers', {
@@ -95,7 +26,6 @@ const Main = () => {
       });
       const json = await response.json();
       setData(json);
-      // console.log('Json Response--', json);
     } catch (error) {
       console.error(error);
     }
@@ -104,44 +34,71 @@ const Main = () => {
     getFoodImages();
   }, []);
   return (
-    <>
+    <KeyboardAwareScrollView>
       <View style={styles.screenContainer}>
-        <TouchableOpacity
-          onPress={() => {
-            // console.log('Back');
+        <View
+          style={{
+            flexDirection: 'row',
+
+            justifyContent: 'space-between',
+            marginTop: 30,
           }}>
-          <Icon
-            name="chevron-back"
-            size={25}
-            style={{marginTop: 20, marginLeft: 20}}
+          <Image
+            source={require('../assets/images/menu.png')}
+            style={{marginTop: 8, marginLeft: 50}}
           />
-        </TouchableOpacity>
+          <Icon
+            name="cart"
+            size={30}
+            color="#808080"
+            style={{marginRight: 30}}
+          />
+        </View>
 
         <Text style={styles.text}>Delicious food for you</Text>
         <View style={styles.inputView}>
-          <Icon name="search-outline" size={25} style={styles.alignIcon} />
+          <Icon
+            name="search-outline"
+            size={25}
+            style={styles.alignIcon}
+            color="#000000"
+          />
           <TextInput
             style={styles.input}
             placeholder="Search"
             placeholderTextColor="#000000"
-            placeholderStyle
+            onChangeText={val => {
+              setSearchTerm(val);
+            }}
           />
+          <Text>{searchTerm}</Text>
         </View>
         <>
           <ScrollView
             horizontal={true}
             style={styles.galleryContainer}
-            contentContainerStyle={{
-              paddingTop: 51,
-            }}>
-            {data.map((item, i) => {
-              // console.log(item.name);
-              return <MenuCard x={item} />;
-            })}
+            contentContainerStyle={
+              {
+                // paddingTop: 41,
+              }
+            }>
+            {data
+              .filter(val => {
+                if (searchTerm === '') {
+                  return val;
+                } else if (
+                  val.name.toLowerCase().includes(searchTerm.toLowerCase())
+                ) {
+                  return val;
+                }
+              })
+              .map((item, i) => {
+                return <MenuCard key={i} x={item} />;
+              })}
           </ScrollView>
         </>
       </View>
-    </>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -149,8 +106,6 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     backgroundColor: '#F2F2F2',
-    // borderWidth: 2,
-    // borderColor: 'green',
   },
   text: {
     color: 'black',
@@ -159,7 +114,6 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     width: 190,
     marginTop: 45,
-    // borderWidth: 2,
   },
   alignIcon: {
     alignSelf: 'center',
@@ -176,37 +130,16 @@ const styles = StyleSheet.create({
   input: {
     borderRadius: 30,
     width: 187,
-    // borderWidth: 1,
-    // borderColor: 'green',
+
+    color: 'gray',
     backgroundColor: '#EFEEEE',
-    fontFamily: 'SF-Pro-Rounded-Light',
+    fontFamily: 'SF-Pro-Rounded-Semibold',
     marginLeft: 16,
   },
 
   galleryContainer: {
-    // flex: 1,
-    // borderWidth: 2,
-    // borderColor: 'yellow',
     marginBottom: 25,
     marginLeft: 30,
-  },
-
-  card: {
-    width: 220,
-    height: 270,
-    borderRadius: 45,
-    backgroundColor: '#ffffff',
-    borderWidth: 1,
-    marginRight: 20,
-    marginLeft: 20,
-  },
-  circle: {
-    backgroundColor: 'pink',
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    alignSelf: 'center',
-    marginTop: -51,
   },
 });
 

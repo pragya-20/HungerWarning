@@ -24,21 +24,18 @@ const LoginSignUp = props => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
-  // Handle user state changes
   function isStateChanged(user) {
     console.log('UserRceived', user);
     setUser(user);
   }
 
   useEffect(() => {
-    console.log('useEffect Called');
     const subscriber = auth().onAuthStateChanged(isStateChanged);
-    console.log('Subsriber: ', subscriber);
+
     return subscriber;
   }, []);
 
   const handleLogin = () => {
-    console.log('Button Click');
     if (isLogin) {
       auth()
         .signInWithEmailAndPassword(email, password)

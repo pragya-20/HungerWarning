@@ -48,15 +48,23 @@ Hunger Warning is an application which will provide a place to order a variety o
 
 * tabBarLabel:() => {return null}
 
+* Error: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+   -- Here I declared teh state variable outside the function component and was settign the value in a component and using it in different component. So, I resolved it by creating the state valriable in one function component and passed it to another component as a prop.
+
+- Cannot update a component while rendering a different component.
 <h3>Learnings</h3>
 
-- Button from React Native [library](https://reactnative.dev/docs/button) is not much customizable so, we use either pressable or touchable
-- Avoid using absolute: position - It's rigid and make it difficult to write layouts that respond well to changing content
-- One needs to link the assets to the project by running the command: "$ npx react-native-asset" as it automatically install native dependencies related to assets.
+* Button from React Native [library](https://reactnative.dev/docs/button) is not much customizable so, we use either pressable or touchable
+* Avoid using absolute: position - It's rigid and make it difficult to write layouts that respond well to changing content
+* One needs to link the assets to the project by running the command: "$ npx react-native-asset" as it automatically install native dependencies related to assets.
 
-* Stack Navigator and it dependencies Installation: don't copy dependencies from other projects and do it fresh in the current project
+- Stack Navigator and it dependencies Installation: don't copy dependencies from other projects and do it fresh in the current project
 
-* [KeyboardAwareScrollView](https://blog.logrocket.com/keyboardawarescrollview-keyboardavoidingview-react-native/): used to avoid the overlapping of the input elements due to keyboard. It let's us to scroll over the whole screen and focus on the element you are working.
+- [KeyboardAwareScrollView](https://blog.logrocket.com/keyboardawarescrollview-keyboardavoidingview-react-native/): used to avoid the overlapping of the input elements due to keyboard. It let's us to scroll over the whole screen and focus on the element you are working.
 
 Learned to simplify the ode as muh as possible , it improves readability and easy to understand.
 Implemented Login and Sign Up using Firebase Authentiation.

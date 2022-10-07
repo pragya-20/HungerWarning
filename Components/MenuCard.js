@@ -9,33 +9,34 @@ import {
   Image,
 } from 'react-native';
 
-// import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-// import Icon from 'react-native-vector-icons/Ionicons';
-// import HomeScreen from './HomeScreen';
-// import Favorite from './Favorite';
-// import Profile from './Profile';
-
 const Main = props => {
-  // console.log(props);
+  // console.log(props.key);
   return (
-    <View style={{justifyContent: 'flex-end'}}>
+    <View style={{justifyContent: 'center'}}>
       <View style={styles.card}>
         <View style={styles.circle}></View>
         <Text
           key={props.x.i}
           style={{
-            color: 'red',
-            // alignSelf: 'flex-start',
-            // justifyContent: 'center',
-            // textAlign: 'center',
+            color: 'black',
             textAlignVertical: 'bottom',
-            borderWidth: 1,
-
-            marginTop: 30,
+            fontSize: 22,
+            fontFamily: 'SF-Pro-Rounded-Semibold',
+            marginTop: 33,
             textAlign: 'center',
-            // textAlignVertical: 'center',
           }}>
           {props.x.name}
+        </Text>
+        <Text
+          style={{
+            color: '#FA4A0C',
+            textAlignVertical: 'bottom',
+            fontSize: 17,
+            fontFamily: 'SF-Pro-Rounded-Semibold',
+            marginTop: 15,
+            textAlign: 'center',
+          }}>
+          {props.x.restaurant}
         </Text>
       </View>
     </View>
@@ -98,6 +99,8 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     marginRight: 20,
     marginLeft: 20,
+    marginTop: 100,
+    alignSelf: 'center',
   },
   circle: {
     backgroundColor: 'pink',
