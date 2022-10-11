@@ -1,24 +1,44 @@
-# hungerWarning
+# HungerWarning
 
 <h3>Overview<h3>
 Hunger Warning is an application which will provide a place to order a variety of cuisines.<br/>
+
 <br/>
 
 <h3>Concepts Used</h3>
 
 - Figma files and assets usage
 - Relative path vs Absolute path and their usage
-- To improve code readability by giving meaningful names
+
 - Internal StyleSheets
 - ScaledSheet is a react native component preset in [Library](https://github.com/nirsky/react-native-size-matters), take the same stylesObject a regular StyleSheet will take, plus a special (optional) annotation that will automatically apply the scale functions used to scale the App UIs accross different devices.
 - Image containers: faced a scenario in which whenever I was removing the borderWidth of the image, Image was stretchng from the left end. Resolved this by surrounding it in a View.<br/>
-- align-self; justifyContent; flexDirection
+- [Layout with flex-box](https://reactnative.dev/docs/flexbox): align-self; justifyContent; flexDirection
 - Adding custom fonts: downloaded the respective font family, included in assets.<br/>Created react-native.config.js file to allows us to set up different configuration files for different environments.
 - Margins to align elements verticaly and horizontaly.
 
-- TouchableOpacity and it's difference with Pressable.
+- [TouchableOpacity](https://reactnative.dev/docs/touchablehighlight), [TouchableHighlight](https://reactnative.dev/docs/touchableopacity) and it's difference with [Pressable](https://reactnative.dev/docs/pressable).
 - resizeMode: Prop of Image view which determines how to resize the image when the frame doesn't match the raw image dimensions. <br/>Values accepted:{ cover,contain, stretch,repeat,center}
-- Image path using source and require
+- Image path using source and require, URI as well
+
+* zIndex: specifies the stack order of elements(an element with greater stack order will keep in front of the element which have lower stack order
+* [Stack Navigation](https://reactnavigation.org/docs/stack-navigator/): To move from 1 screen to another by passing the props to the child components
+* [Tab Navigation nested inside Stack Navigation](https://reactnavigation.org/docs/nesting-navigators/) to provide tabs on a particular screen for further navigation.<br/>
+  Transparent tab navigator contains only icons as tabs without label and color changes for the active screen
+
+* Added forgot password link using Linking.openURL: [Linking](https://reactnative.dev/docs/linking) is a react native Library which lets you open the URL with any of the installed app
+* Implemented the Login, Signup, Signout feature using [firebase authentication](https://rnfirebase.io/auth/usage)
+* Separate tabs for login and signup section build using useState hook which changes the button label if the state is set to login.<br/>
+  A separate authentication method gets called for login and
+  sign up whenever user click on the button.
+* If a user is logged in, the Main Screen will be visible which includes a list of food items <br/>
+  While, if the user is signed out then the Get Started screen will be opened. This has been achieved using the onAuthStateChanged(), it checks the userState and if the userState hasn't changed then set that user otherwise return null. If the user is returned then, redirect to Main Screen else, redirects to Get Started Screen
+* Data which is visible in the food menu is getting fetched from the API using GET method.
+* [Networking](https://reactnative.dev/docs/network): fetched data from the API to load it inside the app
+* Search feature(user can searh for the food item): Response fetched from API got converted into json and then that data have been filtered using .filter() which only works on array and returns the result which is satisfying the function criteria.<br/>
+  .map() is also used with .filter to return the values in an array format where the first parameter is the value and the second parameter returs the index where the value resides
+* We need the data from API as soon as the app renders, so we kept this function inside the useEffect() hook<br/>
+  Similarly, when the user needs to be checked if it's logged in or not, that function as well is inside useEffect()
 
 <h3>Errors/Warnings
 
@@ -40,63 +60,69 @@ Hunger Warning is an application which will provide a place to order a variety o
   | ^
   > Folders for the files have been changed due to which the parent directory of the referred asset have also been changed.
 
-* Error: Got an invalid value for 'component' prop for the screen 'MainScreen'. It must be a valid React Component.
+* <b>Error:</b> Got an invalid value for 'component' prop for the screen 'MainScreen'. It must be a valid React Component.
 
-> export default appname was missing
+  > export default appname was missing
 
-- fatal: Could not read from remote repository.
+* <b>Error:</b> Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:<br/>
+  You might have mismatching versions of React and the renderer (such as React DOM)<br/>
+  You might be breaking the Rules of Hooks
+  <br/>You might have more than one copy of React in the same app
 
-* tabBarLabel:() => {return null}
+  >     Here I declared the state variable outside the function component and was setting the value in a component and using it in different component. So, I resolved it by creating the state valriable in one function component and passed it to another component as a prop.
 
-* Error: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
-
-1. You might have mismatching versions of React and the renderer (such as React DOM)
-2. You might be breaking the Rules of Hooks
-3. You might have more than one copy of React in the same app
-   -- Here I declared teh state variable outside the function component and was settign the value in a component and using it in different component. So, I resolved it by creating the state valriable in one function component and passed it to another component as a prop.
-
-- Cannot update a component while rendering a different component.
+<br/>
+<br/>
 <h3>Learnings</h3>
 
-* Button from React Native [library](https://reactnative.dev/docs/button) is not much customizable so, we use either pressable or touchable
-* Avoid using absolute: position - It's rigid and make it difficult to write layouts that respond well to changing content
-* One needs to link the assets to the project by running the command: "$ npx react-native-asset" as it automatically install native dependencies related to assets.
+- Button from React Native [library](https://reactnative.dev/docs/button) is not much customizable so, we use either pressable or touchable
+- Avoid using absolute: position - It's rigid and make it difficult to write layouts that respond well to changing content
+- One needs to link the assets to the project by running the command: "$ npx react-native-asset" as it automatically install native dependencies related to assets.
 
-- Stack Navigator and it dependencies Installation: don't copy dependencies from other projects and do it fresh in the current project
+* To improve code readability by giving meaningful names to styleSheets
 
-- [KeyboardAwareScrollView](https://blog.logrocket.com/keyboardawarescrollview-keyboardavoidingview-react-native/): used to avoid the overlapping of the input elements due to keyboard. It let's us to scroll over the whole screen and focus on the element you are working.
+* Stack Navigator and it dependencies Installation: don't copy dependencies from other projects and do it fresh in the current project
 
-Learned to simplify the ode as muh as possible , it improves readability and easy to understand.
-Implemented Login and Sign Up using Firebase Authentiation.
-Firebase provides multiple ways to login or sign up in the app inluding email paswwor, anonymously, using soial media handles.
-useState() is a reat native hook whih returns an arrayy with 2 values, first whih the state value and the seond one is the funtion whih updates the state value<br/>
-useState take an argument and initializes the state as well.
-hooks an be used with in funtion omponents only not with the lass omponents. but these are the alternative of states of lass in funtion omponents<br/>
-hooks should be plaed and alled from the top level as they need to be exeuted in the same sequene every time app renders
+* [KeyboardAwareScrollView](https://blog.logrocket.com/keyboardawarescrollview-keyboardavoidingview-react-native/): used to avoid the overlapping of the input elements due to keyboard. It let's us to scroll over the whole screen and focus on the element you are working.
+
+* Simplify the code as much as possible , it improves readability and easy to understand.
+* Overriden the default style of the [ScrollView](https://reactnative.dev/docs/scrollview) by giving custom styling via contentContainerStyle which wraps all the child elements
+* Change the focus to next textInput when the submit buttom is pressed for the previous textInput using useRef hook and [onSubmitEditing](https://reactnative.dev/docs/textinput) callback with .current and .focus()
+* Implemented Login and Sign Up using Firebase Authentiation.
+  Firebase provides multiple ways to login or sign up in the app inluding email paswword, anonymously, using soial media handles.
+* <b>[useState()](https://reactjs.org/docs/hooks-state.html)</b> is a react native hook which returns an array with 2 values, first the state value and the seond one is the function whih updates the state value<br/>
+  useState() take an argument to initializes the state<br/>
+  Hooks are the alternative to states in Class components and be used with in the function components only <br/>
+  Hooks should be plcaed and called from the top level as they need to be exeuted in the same sequene every time app renders
+  <br/>
+* <b>[useRef](https://reactjs.org/docs/hooks-reference.html#useref):</b> It allows you to directly creates a reference to the DOM element. It’s similar to document.getElementById and the ref created will act as the id of the element <br/>
+* <b>[useEffect](https://reactjs.org/docs/hooks-effect.html):</b> its the hook whih lets you perform the side effects in funtion components. Using this, we tell the react that this component needs to do something after first render and every render.
+  so, whenever there is some computational things we need in our app, we separate those in useEffet method so that it doesn't delay the app rendering.<br/>
+* <b>onChangeText</b> prop of TextInput: it's a callback function which iscalled when the text's input changes. changeText is passed as a single string argument to the callback handler. To use the text input value and refer it somewhere you need to use changeText and assign it with stateVariable. Use that state variable with in the code
+* <b>value</b> prop of the text input lets you forcibly set the initial value in the inputText
+
 <br/>
-useRef <br/>
-useEffet: its the hook whih lets you perform the side effets in funtion omponents. using this, we tell the reat that this omponent needs to do something after first render and every render.
-so, whenever there is some omputational things we need in our app, we separate those in useEffet method so that it doesn't delay the app rendering.<br/>
-onhangeText prop of TextInput: it's a allbak funtion whih is alled when the text's input hanges. hange text is passed as a single string argument to the allbak handler. To use the text input value and refer it somewhere you need to use hangeText and assign it with stateVariable. Then you an use that state variable with in the ode
-value prop of the text input lets you foribly set the initial value in the input and doesn't let you enter anything beyond that
 
-<br/>
-To hek if the user is urrently signedin or not in the appliation, firebase provides a method alled onAuthStatehanged whih allows you to subsribe the users urrent authentiation state and reive an event whatever the state hanges 
-Important, onAuthStatehanged is asynh method whih runs after the onnetion with the firebase established
-If the user retuned within the handler is null then it means that the user is signed out urrntly,otherwise they are signedin and and a UI is returned
+- To chek if the user is currently signed in or not in the application, firebase provides a method called [onAuthStatechanged](https://rnfirebase.io/auth/usage#listening-to-authentication-state) which allows you to subscribe the users current authentiation state and receive an event whatever the state changes
+  <br/>Important, onAuthStatehanged is async method which runs after the connetion with the firebase established
+  <br/>If the user returned within the handler is null then it means that the user is signed out currently otherwise they are signedin and a UI is returned
 
-TO Ask Saurav: Therefore it is important to setup an "initializing" state which blocks render of our main application whilst the connection is established:
+- [EmailPassword sign-in](https://rnfirebase.io/auth/usage#emailpassword-sign-in): user can both register and sign using the following methods:
 
-the onAuthStatehanged method also returns an unsubsriber method whih allows us to stop listening events when teh hook is of no use
+  1. createUserWithEmailAndPassword which creates the user if they are not the existing ones and
+  2. if that is the existing user then .signInWithEmailPassword() method is used to sign them in.
 
-EMailPassword Sign in: user an both register and sign using the method reateUserWithEmailAndPassword whih performs 2 operations: first, reating the user if they are not the existing ones and then signing them in.
-.then(): this is a promise whih exeuted only if the promise is resolved and if the promise is rejeted then .ath() will be exeuted whih handles the errors
-post that there is .finally() whih exeutes always
-One suessfully reated and signedin /signed in, any onAuthStatehanges listener will trigger an event with the user details
+- Post the above mentioned methods' execution,
+  <br/>.then(): this is a promise whih executed only if the promise is resolved and if the promise is rejeted then .catch() will be exeuted which handles the errors
+  and there is .finally() which always executes
 
-What so every the method you use to login/sign-up, you need to enable that mentod in the firebase onsole as well.
+  > <b>What so ever the method you use to login/sign-up, you need to enable that method in the [firebase console](https://console.firebase.google.com/) as well.</b>
 
-- PlaceholderColor
-- placeholder fontfamily
-
-* Pass the horizontal={true} prop to the ScrollView Component.
+* We can style the [placeholder](https://reactnative.dev/docs/textinput#placeholder) text as well, following props have been used in this project:
+  - PlaceholderColor
+  - placeholder fontfamily
+    <br/>
+* To make a horizontal scrollView, you need to Pass the horizontal={true} prop to the ScrollView Component.
+* Always write a clean code
+* Separate all the screens in different files.
+* Try to abstract out views and components that can be re-used.

@@ -1,21 +1,38 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import HomeScreen from './screens/HomeScreen';
 import LoginSignUp from './screens/LoginSignUp';
 import TabMenu from './screens/TabMenu';
-
+import auth from '@react-native-firebase/auth';
 const Stack = createNativeStackNavigator();
 
 function App() {
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+  function isStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(isStateChanged);
+    return subscriber;
+  }, []);
+  if (initializing) return null;
+
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{headerShown: false}}
-        initialRouteName="TabMenu">
-        <Stack.Screen name="Home" component={HomeScreen}></Stack.Screen>
-        <Stack.Screen name="LogIn" component={LoginSignUp}></Stack.Screen>
-        <Stack.Screen name="TabMenu" component={TabMenu}></Stack.Screen>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        {user ? (
+          <Stack.Screen name="TabMenu" component={TabMenu}></Stack.Screen>
+        ) : (
+          <>
+            <Stack.Screen name="Home" component={HomeScreen}></Stack.Screen>
+            <Stack.Screen name="LogIn" component={LoginSignUp}></Stack.Screen>
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

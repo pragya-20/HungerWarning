@@ -6,9 +6,13 @@ import Favorite from './Favorite';
 import HomeScreen from './HomeScreen';
 import Profile from './Profile';
 import MainScreen from './MainScreen';
+import auth from '@react-native-firebase/auth';
 
 const Tab = createBottomTabNavigator();
 
+const signOut = () => {
+  auth().signOut();
+};
 const BottomMenu = props => {
   return (
     <>
@@ -52,13 +56,7 @@ const BottomMenu = props => {
               }
             }
             return (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                  borderColor: 'green',
-                  width: '100%',
-                }}>
+              <View style={styles.tabsContainer}>
                 <View>
                   <Icon name={iconName} color={iconColor} size={25} />
                 </View>
@@ -98,7 +96,7 @@ const BottomMenu = props => {
           listeners={{
             tabPress: e => {
               e.preventDefault();
-              Alert.alert('Signed Out');
+              signOut();
             },
           }}
           options={{headerShown: false}}
@@ -108,6 +106,13 @@ const BottomMenu = props => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  tabsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    borderColor: 'green',
+    width: '100%',
+  },
+});
 
 export default BottomMenu;

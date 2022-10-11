@@ -36,22 +36,16 @@ const MainScreen = props => {
   return (
     <KeyboardAwareScrollView>
       <View style={styles.screenContainer}>
-        <View
-          style={{
-            flexDirection: 'row',
-
-            justifyContent: 'space-between',
-            marginTop: 30,
-          }}>
+        <View style={styles.menuIconContainer}>
           <Image
             source={require('../assets/images/menu.png')}
-            style={{marginTop: 8, marginLeft: 50}}
+            style={styles.menuIconStyle}
           />
           <Icon
             name="cart"
             size={30}
             color="#808080"
-            style={{marginRight: 30}}
+            style={styles.cartIconStyle}
           />
         </View>
 
@@ -71,17 +65,9 @@ const MainScreen = props => {
               setSearchTerm(val);
             }}
           />
-          <Text>{searchTerm}</Text>
         </View>
         <>
-          <ScrollView
-            horizontal={true}
-            style={styles.galleryContainer}
-            contentContainerStyle={
-              {
-                // paddingTop: 41,
-              }
-            }>
+          <ScrollView horizontal={true} style={styles.galleryContainer}>
             {data
               .filter(val => {
                 if (searchTerm === '') {
@@ -107,6 +93,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F2F2F2',
   },
+  menuIconContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 30,
+  },
+  menuIconStyle: {
+    marginTop: 8,
+    marginLeft: 50,
+  },
+  cartIconStyle: {marginRight: 30},
   text: {
     color: 'black',
     fontFamily: 'SF-Pro-Rounded-Heavy',

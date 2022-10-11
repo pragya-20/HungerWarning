@@ -9,23 +9,18 @@ import {
   TouchableHighlight,
   TextInput,
   Linking,
+  Alert,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 
 const LoginSignUp = props => {
   const [isLogin, setVisible] = useState(true);
-
   const inputPasswordRef = useRef(null);
-
-  const navigation = props.navigation;
-
   const [user, setUser] = useState(null);
-
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
   function isStateChanged(user) {
-    console.log('UserRceived', user);
     setUser(user);
   }
 
@@ -40,29 +35,26 @@ const LoginSignUp = props => {
       auth()
         .signInWithEmailAndPassword(email, password)
         .then(result => {
-          console.log('Logged In', result);
+          goToMainScreen();
         })
         .catch(erroraaya => {
-          console.log('Wrong credentials', erroraaya);
+          Alert.alert('Wrong credentials, please check email or password!');
         });
     } else {
       auth()
         .createUserWithEmailAndPassword(email, password)
         .then(data => {
-          console.log('User account created & signed in!', ' ', data);
+          goToMainScreen();
         })
         .catch(error => {
           if (error.code === 'auth/email-already-in-use') {
-            console.log('That email address is already in use!');
+            Alert.alert('That email address is already in use!');
           }
 
           if (error.code === 'auth/invalid-email') {
-            console.log('That email address is invalid!');
+            Alert.alert('That email address is invalid!');
           }
-
-          console.log(error);
         });
-      console.log('JS ended');
     }
   };
 
