@@ -1,9 +1,13 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Touchable, Pressable} from 'react-native';
 
 const Main = props => {
   return (
-    <View style={styles.menuCardContainer}>
+    <Pressable
+      style={styles.menuCardContainer}
+      onPress={() => {
+        console.log('Food Item - ' + props.key);
+      }}>
       <View style={styles.card}>
         <View style={styles.circle}></View>
         <Text key={props.x.i} style={styles.dishNameStyle}>
@@ -11,7 +15,7 @@ const Main = props => {
         </Text>
         <Text style={styles.restaurantNameStyle}>{props.x.restaurant}</Text>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

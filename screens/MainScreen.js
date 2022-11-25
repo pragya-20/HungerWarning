@@ -10,10 +10,13 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import Cart from './Cart';
 
-const MainScreen = props => {
+const MainScreen = ({navigation}) => {
+  console.log('MainScreen Nav: ', navigation);
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [addToCart, setCart] = useState();
   const getFoodImages = async () => {
     try {
       const response = await fetch('https://burgers1.p.rapidapi.com/burgers', {
@@ -46,6 +49,9 @@ const MainScreen = props => {
             size={30}
             color="#808080"
             style={styles.cartIconStyle}
+            onPress={() => {
+              navigation.navigate(Cart);
+            }}
           />
         </View>
 
@@ -79,7 +85,14 @@ const MainScreen = props => {
                 }
               })
               .map((item, i) => {
-                return <MenuCard key={i} x={item} />;
+                return (
+                  <MenuCard
+                    key={i}
+                    x={item}
+                    navigation={navigation}
+                    cart={addToCart}
+                  />
+                ); //Passing navigation prop of screen to it's child
               })}
           </ScrollView>
         </>
