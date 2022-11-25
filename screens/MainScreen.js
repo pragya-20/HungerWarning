@@ -10,7 +10,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import Cart from './Cart';
+// import Cart from './Cart';
 
 const MainScreen = ({navigation}) => {
   console.log('MainScreen Nav: ', navigation);
@@ -84,14 +84,9 @@ const MainScreen = ({navigation}) => {
                   return val;
                 }
               })
-              .map((item, i) => {
+              .map(item => {
                 return (
-                  <MenuCard
-                    key={i}
-                    x={item}
-                    navigation={navigation}
-                    cart={addToCart}
-                  />
+                  <MenuCard x={item} navigation={navigation} cart={addToCart} />
                 ); //Passing navigation prop of screen to it's child
               })}
           </ScrollView>

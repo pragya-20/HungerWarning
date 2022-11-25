@@ -3,19 +3,19 @@ import {View, Text, StyleSheet, Touchable, Pressable} from 'react-native';
 
 const Main = props => {
   return (
-    <Pressable
-      style={styles.menuCardContainer}
-      onPress={() => {
-        console.log('Food Item - ' + props.key);
-      }}>
-      <View style={styles.card}>
+    <View style={styles.menuCardContainer}>
+      <Pressable
+        style={styles.card}
+        onPress={() => {
+          console.log('Food Item - ' + props.x.id);
+        }}>
         <View style={styles.circle}></View>
-        <Text key={props.x.i} style={styles.dishNameStyle}>
+        <Text key={props.x.id} style={styles.dishNameStyle}>
           {props.x.name}
         </Text>
         <Text style={styles.restaurantNameStyle}>{props.x.restaurant}</Text>
-      </View>
-    </Pressable>
+      </Pressable>
+    </View>
   );
 };
 
