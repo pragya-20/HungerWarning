@@ -126,3 +126,10 @@ Hunger Warning is an application which will provide a place to order a variety o
 * Always write a clean code
 * Separate all the screens in different files.
 * Try to abstract out views and components that can be re-used.
+* When using external APIs, these APIs use some sort of keys and secrets and one should not push them to github as anyone can use them via your account.
+* Any React Native application created using 'create-react-app' supports environment valriables out of the box, it reads variable that begin with REACT_APP and make them available through process env.<br/>
+  To Store API keys, create a new file called .env in the root directory of React Application. Then, prefix the API key name with REACT_APP like: REACT_APP_API_KEY="key" and to access the API Key in any file in React app using process.env like: const api_key=process.env.REACT_APP_API_KEY.<br/>
+  > Make sure that you add .env file to the .gitignore file to prevent git from tracking
+  > <br/>
+  > .env file needs to be configured first to [inject](https://blog.logrocket.com/understanding-react-native-env-variables/) the custom environment variables into the React Native environment. To do so, there are many packages which can be used to achieve it such as react-native-config, dotenv.<br/>
+* Ignore a file in git: just add the file name in .gitignore file

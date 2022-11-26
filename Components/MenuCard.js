@@ -2,6 +2,9 @@ import React from 'react';
 import {View, Text, StyleSheet, Touchable, Pressable} from 'react-native';
 
 const Main = props => {
+  // console.log('Menu Card props-', props);
+  const itemName = props.x.name;
+  const navigation = useNavigation();
   return (
     <View style={styles.menuCardContainer}>
       <Pressable

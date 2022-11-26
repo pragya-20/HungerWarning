@@ -10,27 +10,25 @@ import {
   TextInput,
   View,
 } from 'react-native';
-// import Cart from './Cart';
+import {X_RapidAPI_Key, X_RapidAPI_Host} from '@env';
 
 const MainScreen = ({navigation}) => {
-  console.log('MainScreen Nav: ', navigation);
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [addToCart, setCart] = useState();
+
   const getFoodImages = async () => {
     try {
       const response = await fetch('https://burgers1.p.rapidapi.com/burgers', {
         method: 'GET',
         headers: {
-          'X-RapidAPI-Key':
-            'b13d4452e0msh022c443e270f56bp1d7113jsn7bdfb29892ae',
-          'X-RapidAPI-Host': 'burgers1.p.rapidapi.com',
+          'X-RapidAPI-Key': X_RapidAPI_Key,
+          'X-RapidAPI-Host': X_RapidAPI_Host,
         },
       });
       const json = await response.json();
       setData(json);
     } catch (error) {
-      console.error(error);
+      Alert(error);
     }
   };
   useEffect(() => {
@@ -72,25 +70,19 @@ const MainScreen = ({navigation}) => {
             }}
           />
         </View>
-        <>
-          <ScrollView horizontal={true} style={styles.galleryContainer}>
-            {data
-              .filter(val => {
-                if (searchTerm === '') {
-                  return val;
-                } else if (
-                  val.name.toLowerCase().includes(searchTerm.toLowerCase())
-                ) {
-                  return val;
-                }
-              })
-              .map(item => {
-                return (
-                  <MenuCard x={item} navigation={navigation} cart={addToCart} />
-                ); //Passing navigation prop of screen to it's child
-              })}
-          </ScrollView>
-        </>
+        <ScrollView horizontal={true} style={styles.galleryContainer}>
+          {data
+            .filter(val => {
+              if (val.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+                return val;
+              }
+            })
+            .map(item => {
+              return (
+                <MenuCard key={item.id} x={item} navigation={navigation} />
+              ); //Passing navigation prop of screen to it's child
+            })}
+        </ScrollView>
       </View>
     </KeyboardAwareScrollView>
   );

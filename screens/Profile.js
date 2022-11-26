@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 
 const Profile = () => {
   return (
@@ -10,8 +10,13 @@ const Profile = () => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <Text style={{color: 'black'}}>Profile</Text>
+      <Text style={styles.textStyle}>Profile</Text>
     </View>
   );
 };
+const styles = StyleSheet.create({
+  textStyle: {
+    color: '#000000',
+  },
+});
 export default Profile;
