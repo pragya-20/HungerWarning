@@ -40,6 +40,8 @@ Hunger Warning is an application which will provide a place to order a variety o
 * We need the data from API as soon as the app renders, so we kept this function inside the useEffect() hook<br/>
   Similarly, when the user needs to be checked if it's logged in or not, that function as well is inside useEffect()
 
+* Add new line in jsx - {'\n\n'}
+
 <h3>Errors/Warnings
 
 - Unable to Load Script. Make sure you're either running Metro('run npx react-native start') or that your bundle 'index.android.bundle' is packaged correctly for release

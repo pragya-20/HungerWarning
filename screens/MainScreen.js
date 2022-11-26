@@ -86,7 +86,7 @@ const MainScreen = ({navigation}) => {
               })
               .map(item => {
                 return (
-                  <MenuCard x={item} navigation={navigation} cart={addToCart} />
+                  <MenuCard key={item.id} x={item} navigation={navigation} />
                 ); //Passing navigation prop of screen to it's child
               })}
           </ScrollView>

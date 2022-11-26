@@ -5,6 +5,7 @@ import HomeScreen from './screens/HomeScreen';
 import LoginSignUp from './screens/LoginSignUp';
 import TabMenu from './screens/TabMenu';
 import auth from '@react-native-firebase/auth';
+import ItemDetail from './screens/ItemDetail';
 const Stack = createNativeStackNavigator();
 
 function App() {
@@ -26,7 +27,12 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         {user ? (
-          <Stack.Screen name="TabMenu" component={TabMenu}></Stack.Screen>
+          <>
+            <Stack.Screen name="TabMenu" component={TabMenu}></Stack.Screen>
+            <Stack.Screen
+              name="ItemDetail"
+              component={ItemDetail}></Stack.Screen>
+          </>
         ) : (
           <>
             <Stack.Screen name="Home" component={HomeScreen}></Stack.Screen>
