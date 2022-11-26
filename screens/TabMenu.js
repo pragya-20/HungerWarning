@@ -14,56 +14,44 @@ const signOut = () => {
   auth().signOut();
 };
 const BottomMenu = props => {
+  const tabBarIcons = ({focused, route}) => {
+    let iconName;
+    let iconColor;
+    const iconPropertiesMap = {
+      MainScreen: [
+        {name: 'home', color: '#FA4A0C'},
+        {name: 'home-outline', color: '#ADADAF'},
+      ],
+      Favorite: [
+        {name: 'heart-sharp', color: '#FA4A0C'},
+        {name: 'heart-outline', color: '#ADADAF'},
+      ],
+      ProfileScreen: [
+        {name: 'person', color: '#FA4A0C'},
+        {name: 'person-outline', color: '#ADADAF'},
+      ],
+      Home: [
+        {name: 'timer', color: '#FA4A0C'},
+        {name: 'timer-outline', color: '#ADADAF'},
+      ],
+    };
+    const index = focused ? 0 : 1;
+    iconProp = iconPropertiesMap[route.name][index];
+    iconName = iconProp.name;
+    iconColor = iconProp.color;
+    return (
+      <View style={styles.tabsContainer}>
+        <View>
+          <Icon name={iconName} color={iconColor} size={25} />
+        </View>
+      </View>
+    );
+  };
   return (
     <>
       <Tab.Navigator
         screenOptions={({route}) => ({
-          tabBarIcon: ({focused}) => {
-            let iconName;
-            let iconColor;
-
-            if (route.name === 'MainScreen') {
-              if (focused) {
-                iconName = 'home';
-                iconColor = '#FA4A0C';
-              } else {
-                iconName = 'home-outline';
-                iconColor = '#ADADAF';
-              }
-            } else if (route.name === 'Favorite') {
-              if (focused) {
-                iconName = 'heart-sharp';
-                iconColor = '#FA4A0C';
-              } else {
-                iconName = 'heart-outline';
-                iconColor = '#ADADAF';
-              }
-            } else if (route.name === 'ProfileScreen') {
-              if (focused) {
-                iconName = 'person';
-                iconColor = '#FA4A0C';
-              } else {
-                iconName = 'person-outline';
-                iconColor = '#ADADAF';
-              }
-            } else {
-              if (focused) {
-                iconName = 'timer';
-                iconColor = '#FA4A0C';
-              } else {
-                iconName = 'timer-outline';
-                iconColor = '#ADADAF';
-              }
-            }
-            return (
-              <View style={styles.tabsContainer}>
-                <View>
-                  <Icon name={iconName} color={iconColor} size={25} />
-                </View>
-              </View>
-            );
-          },
-
+          tabBarIcon: ({focused}) => tabBarIcons({focused, route}),
           tabBarActiveTintColor: 'blue',
           tabBarStyle: {
             backgroundColor: 'transparent',

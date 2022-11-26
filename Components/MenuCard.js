@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import ItemDetail from '../screens/ItemDetail';
 
 const Main = props => {
-  console.log('Menu Card props-', props);
+  // console.log('Menu Card props-', props);
   const itemName = props.x.name;
   const navigation = useNavigation();
   return (

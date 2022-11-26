@@ -37,7 +37,7 @@ const LoginSignUp = props => {
         .then(result => {
           goToMainScreen();
         })
-        .catch(erroraaya => {
+        .catch(error => {
           Alert.alert('Wrong credentials, please check email or password!');
         });
     } else {
