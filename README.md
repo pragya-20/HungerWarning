@@ -85,7 +85,7 @@ Hunger Warning is an application which will provide a place to order a variety o
 
 * Stack Navigator and it dependencies Installation: don't copy dependencies from other projects and do it fresh in the current project
 
-* [KeyboardAwareScrollView](https://blog.logrocket.com/keyboardawarescrollview-keyboardavoidingview-react-native/): used to avoid the overlapping of the input elements due to keyboard. It let's us to scroll over the whole screen and focus on the element you are working.
+* [KeyboardAwareScrollView](https://blog.logrocket.com/keyboardawarescrollview-keyboardavoidingview-react-native/): used to avoid the overlapping of the input elements due to keyboard. It let us to scroll over the whole screen and focus on the element you are working.
 
 * Simplify the code as much as possible , it improves readability and easy to understand.
 * Overriden the default style of the [ScrollView](https://reactnative.dev/docs/scrollview) by giving custom styling via contentContainerStyle which wraps all the child elements
@@ -135,3 +135,4 @@ Hunger Warning is an application which will provide a place to order a variety o
   > <br/>
   > .env file needs to be configured first to [inject](https://blog.logrocket.com/understanding-react-native-env-variables/) the custom environment variables into the React Native environment. To do so, there are many packages which can be used to achieve it such as react-native-config, dotenv.<br/>
 * Ignore a file in git: just add the file name in .gitignore file
+* Underlay color: The color of the underlay that will show through when the touch is active.

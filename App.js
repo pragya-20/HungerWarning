@@ -35,8 +35,12 @@ function App() {
           </>
         ) : (
           <>
-            <Stack.Screen name="Home" component={HomeScreen}></Stack.Screen>
-            <Stack.Screen name="LogIn" component={LoginSignUp}></Stack.Screen>
+            <Stack.Screen
+              name="HomeScreen"
+              component={HomeScreen}></Stack.Screen>
+            <Stack.Screen
+              name="LogInSignUp"
+              component={LoginSignUp}></Stack.Screen>
           </>
         )}
       </Stack.Navigator>
