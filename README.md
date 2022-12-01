@@ -84,7 +84,8 @@ Hunger Warning is an application which will provide a place to order a variety o
 
 * Stack Navigator and it dependencies Installation: don't copy dependencies from other projects and do it fresh in the current project
 
-- # [KeyboardAwareScrollView](https://blog.logrocket.com/keyboardawarescrollview-keyboardavoidingview-react-native/): used to avoid the overlapping of the input elements due to keyboard. It let us to scroll over the whole screen and focus on the element you are working.
+* [KeyboardAwareScrollView](https://blog.logrocket.com/keyboardawarescrollview-keyboardavoidingview-react-native/): used to avoid the overlapping of the input elements due to keyboard. It let us to scroll over the whole screen and focus on the element you are working.
+
 - [KeyboardAwareScrollView](https://blog.logrocket.com/keyboardawarescrollview-keyboardavoidingview-react-native/): used to avoid the overlapping of the input elements due to keyboard. It let's us to scroll over the whole screen and focus on the element you are working.
 
 - Simplify the code as much as possible , it improves readability and easy to understand.
