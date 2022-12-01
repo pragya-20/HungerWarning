@@ -60,7 +60,7 @@ const LoginSignUp = () => {
 
   return (
     <KeyboardAwareScrollView
-      contentContainerStyle={styles.KeyboardAwareScrollViewStyle}
+      contentContainerStyle={styles.keyboardAwareScrollViewStyle}
       style={styles.removePadding}>
       <View style={[styles.alignImage, styles.whiteBackground]}>
         <Image source={require('../assets/images/loginImage.png')} />
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   removePadding: {
     padding: 0,
   },
-  KeyboardAwareScrollViewStyle: {flexGrow: 1, backgroundColor: '#F2F2F2'},
+  keyboardAwareScrollViewStyle: {flexGrow: 1, backgroundColor: '#F2F2F2'},
   alignImage: {
     height: 330,
     justifyContent: 'center',
