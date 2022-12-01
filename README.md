@@ -86,8 +86,6 @@ Hunger Warning is an application which will provide a place to order a variety o
 
 * [KeyboardAwareScrollView](https://blog.logrocket.com/keyboardawarescrollview-keyboardavoidingview-react-native/): used to avoid the overlapping of the input elements due to keyboard. It let us to scroll over the whole screen and focus on the element you are working.
 
-- [KeyboardAwareScrollView](https://blog.logrocket.com/keyboardawarescrollview-keyboardavoidingview-react-native/): used to avoid the overlapping of the input elements due to keyboard. It let's us to scroll over the whole screen and focus on the element you are working.
-
 - Simplify the code as much as possible , it improves readability and easy to understand.
 - Overriden the default style of the [ScrollView](https://reactnative.dev/docs/scrollview) by giving custom styling via contentContainerStyle which wraps all the child elements
 - Change the focus to next textInput when the submit buttom is pressed for the previous textInput using useRef hook and [onSubmitEditing](https://reactnative.dev/docs/textinput) callback with .current and .focus()
