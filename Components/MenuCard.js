@@ -1,8 +1,9 @@
 import React from 'react';
 import {View, Text, StyleSheet, Touchable, Pressable} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import ItemDetail from '../screens/ItemDetail';
 
 const Main = props => {
-  // console.log('Menu Card props-', props);
   const itemName = props.x.name;
   const navigation = useNavigation();
   return (
@@ -10,7 +11,7 @@ const Main = props => {
       <Pressable
         style={styles.card}
         onPress={() => {
-          console.log('Food Item - ' + props.x.id);
+          navigation.navigate('ItemDetail', {name: itemName});
         }}>
         <View style={styles.circle}></View>
         <Text key={props.x.id} style={styles.dishNameStyle}>

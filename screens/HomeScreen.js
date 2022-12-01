@@ -1,11 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 
-const HomeScreen = props => {
-  const navigation = props.navigation;
-
+const HomeScreen = ({navigation}) => {
   function goToLogin() {
-    navigation.navigate('LogIn');
+    navigation.navigate('LogInSignUp');
   }
 
   return (
@@ -55,7 +53,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 49,
-    marginTop: 56 / 2,
+    marginTop: 28,
   },
   titleLineContainer: {
     marginLeft: 51,

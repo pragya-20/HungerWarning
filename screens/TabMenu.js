@@ -13,7 +13,7 @@ const Tab = createBottomTabNavigator();
 const signOut = () => {
   auth().signOut();
 };
-const BottomMenu = props => {
+const BottomMenu = () => {
   const tabBarIcons = ({focused, route}) => {
     let iconName;
     let iconColor;

@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 
-const LoginSignUp = props => {
+const LoginSignUp = () => {
   const [isLogin, setVisible] = useState(true);
   const inputPasswordRef = useRef(null);
   const [user, setUser] = useState(null);
@@ -60,7 +60,7 @@ const LoginSignUp = props => {
 
   return (
     <KeyboardAwareScrollView
-      contentContainerStyle={{flexGrow: 1, backgroundColor: '#F2F2F2'}}
+      contentContainerStyle={styles.keyboardAwareScrollViewStyle}
       style={styles.removePadding}>
       <View style={[styles.alignImage, styles.whiteBackground]}>
         <Image source={require('../assets/images/loginImage.png')} />
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   removePadding: {
     padding: 0,
   },
-
+  keyboardAwareScrollViewStyle: {flexGrow: 1, backgroundColor: '#F2F2F2'},
   alignImage: {
     height: 330,
     justifyContent: 'center',
